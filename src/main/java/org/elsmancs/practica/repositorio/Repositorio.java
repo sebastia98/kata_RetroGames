@@ -27,7 +27,7 @@ public class Repositorio {
 		RetroGame game = cargaGame(gameName);
 		Orden orden = new Orden();
 		
-		if(user != null) {
+		if(user != null && game != null) {
 			orden.setUser(user);
 			orden.setGame(game);
 			return orden;

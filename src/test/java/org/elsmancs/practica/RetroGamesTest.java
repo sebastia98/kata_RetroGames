@@ -169,4 +169,16 @@ public class RetroGamesTest {
 		Orden orden = repo.ordenar("Wilson", "Ghosts n Goblins");
 		assertNull(orden);
 	}
+	/**
+     * Implementa el metodo ordenar del repositorio
+	 * para que no permita generar ordenes de RetroGames
+	 * si no existe el RetroGame en la base de datos.
+	 */
+	@Test
+	@Transactional
+	public void test_ordenar_no_game() {
+		assertNotNull(repo);
+		Orden orden = repo.ordenar("Bernard Bernoulli", "Grim Fandango");
+		assertNull(orden);
+	}
 }
