@@ -1,5 +1,8 @@
 package org.elsmancs.practica.repositorio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -37,6 +40,24 @@ public class Repositorio {
 			}	
 		}
 		return null;
+	}
+	public List<Orden> ordenarMultiple(String userName, List<String> games) throws NotEnoughProException {
+		
+		List<Orden> listaOrdenes = new ArrayList<Orden>();
+		
+		for (String gameName : games) {
+			
+			Orden orden = new Orden();
+			
+			orden = ordenar(userName, gameName);
+			
+			if (orden != null) {
+				listaOrdenes.add(orden);
+			}
+			
+		}
+		
+		return listaOrdenes;
 	}
 
 }

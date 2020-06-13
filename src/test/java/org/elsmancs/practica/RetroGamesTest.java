@@ -198,4 +198,34 @@ public class RetroGamesTest {
 		repo.ordenar("Guybrush", "Ghosts n Goblins");
 		Assert.fail();
 	}
+	/**
+	 * Implementa el metodo ordenarMultiple para que un usuario/a
+	 * pueda ordenar más de un RetroGame a la vez.
+	 * Guarda las ordenes en la base de datos.
+     * 
+     * No se permiten ordenes si el usuario no existe en la base de datos.
+	 * 
+	 * No se ordenan items que no existen en la base de datos.
+	 * @throws NotEnoughProException 
+	 */
+	@Test
+	@Transactional
+	public void test_ordenar_multiples_items() throws NotEnoughProException {
+		assertNotNull(repo);
+		List<Orden> ordenes = repo.ordenarMultiple("Bernard Bernoulli", Arrays.asList("Ghosts n Goblins", "El dia del tentaculo"));
+		assertNotNull(ordenes);
+
+		assertEquals(2, ordenes.size());
+		assertFalse(ordenes.contains(null));
+
+		// no se permiten ordenes si el usuario no existe en la base de datos
+		ordenes = repo.ordenarMultiple("Wilson", Arrays.asList("Ghosts n Goblins", "El dia del tentaculo"));
+		assertTrue(ordenes.isEmpty());
+		assertEquals(0, ordenes.size());
+
+		// no se ordenan items que no existen en la base de datos
+		ordenes = repo.ordenarMultiple("Bernard Bernoulli", Arrays.asList("Ghosts n Goblins", "Grim Fandango"));
+		assertEquals(1, ordenes.size());
+	}
+
 }
