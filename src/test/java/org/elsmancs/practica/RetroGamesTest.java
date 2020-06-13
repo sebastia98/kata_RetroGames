@@ -25,6 +25,7 @@ import javax.persistence.PersistenceContext;
 
 import org.elsmancs.practica.controlador.Controlador;
 import org.elsmancs.practica.domain.RetroGame;
+import org.elsmancs.practica.domain.Usuaria;
 import org.elsmancs.practica.repositorio.Repositorio;
 import org.elsmancs.practica.servicio.Servicio;
 import org.junit.Assert;
@@ -96,5 +97,19 @@ public class RetroGamesTest {
 		assertEquals("El dia del tentaculo", game.getNombre()); //item_nom
 		assertEquals(7, game.getDificultad(), 0); //item_prop
 		assertEquals("RetroGame", game.getTipo()); //item_tipo
-	}	
+	}
+	// Completa la definicion y el mapping
+	// de la clase Usuaria a la tabla t_users
+	@Test
+	public void test_mapping_user() {
+		Usuaria guy = em.find(Usuaria.class, "Guybrush");
+		assertNotNull(guy);
+		assertEquals("Guybrush", guy.getNombre()); //user_nom
+		assertEquals(15, guy.getDestreza(), 0);  //user_prop
+	}
+	
+	
+	
+	
+	
 }
