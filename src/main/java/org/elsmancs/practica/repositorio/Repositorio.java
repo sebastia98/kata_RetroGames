@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.elsmancs.practica.domain.Orden;
 import org.elsmancs.practica.domain.RetroGame;
@@ -34,6 +35,7 @@ public class Repositorio {
 			if(user.getDestreza() >= game.getDificultad()) {
 				orden.setUser(user);
 				orden.setGame(game);
+				em.persist(orden);
 				return orden;
 			}else {
 				throw new NotEnoughProException();
@@ -54,10 +56,16 @@ public class Repositorio {
 			if (orden != null) {
 				listaOrdenes.add(orden);
 			}
-			
 		}
-		
 		return listaOrdenes;
 	}
+	
+	public List<Orden> queryUser(String nameUser){
+		
+		TypedQuery<Orden> query = em.createQuery("SELECT orden FROM Orden orden JOIN orden.user user WHERE user.userName = :nameUser", Orden.class);
+		query.setParameter("nameUser", nameUser);
+		return query.getResultList();
+	}
+	
 
 }

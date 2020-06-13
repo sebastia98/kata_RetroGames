@@ -227,5 +227,31 @@ public class RetroGamesTest {
 		ordenes = repo.ordenarMultiple("Bernard Bernoulli", Arrays.asList("Ghosts n Goblins", "Grim Fandango"));
 		assertEquals(1, ordenes.size());
 	}
+	/**
+	 * Implementa un Servicio con el metodo listarOrdenesUser.
+	 * Lista las ordenes que ha generado una determinada Usuaria.
+	 * 
+	 * Has de implementar el servicio e indicar
+	 * que es un componente Spring.
+	 * @throws NotEnoughProException 
+	 */
+    @Test
+    @Transactional
+	public void test_listar_ordenes_user() throws NotEnoughProException {
 
+        assertNotNull(repo);
+        
+        // Has de crear el servicio e indicar que es un componente Spring.
+        assertNotNull(servicio);
+        
+		List<Orden> ordenes = repo.ordenarMultiple("Bernard Bernoulli", Arrays.asList("Ghosts n Goblins", "El dia del tentaculo"));
+		assertNotNull(ordenes);
+
+		assertEquals(2, ordenes.size());
+		assertFalse(ordenes.contains(null));
+
+		ordenes = servicio.listarOrdenesUser("Bernard Bernoulli");
+		assertEquals(2, ordenes.size());
+		assertFalse(ordenes.contains(null));
+	}
 }
