@@ -24,6 +24,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.elsmancs.practica.controlador.Controlador;
+import org.elsmancs.practica.domain.Orden;
 import org.elsmancs.practica.domain.RetroGame;
 import org.elsmancs.practica.domain.Usuaria;
 import org.elsmancs.practica.repositorio.Repositorio;
@@ -107,7 +108,17 @@ public class RetroGamesTest {
 		assertEquals("Guybrush", guy.getNombre()); //user_nom
 		assertEquals(15, guy.getDestreza(), 0);  //user_prop
 	}
-	
+	// Completa la definicion y el mapping
+	// de la clase Orden a la tabla t_ordenes
+	// El id de esta clase ha de seguir una estrategia
+	// Identity
+	@Test 
+	public void test_mapping_orden() {
+		Orden pedido = em.find(Orden.class, 1L);
+		assertNotNull(pedido);
+		assertEquals("Guybrush", pedido.getUser().getNombre()); //ord_user
+		assertEquals("El dia del tentaculo", pedido.getItem().getNombre()); //ord_item
+	}
 	
 	
 	
