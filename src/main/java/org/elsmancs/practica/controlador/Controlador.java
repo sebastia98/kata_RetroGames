@@ -28,7 +28,7 @@ public class Controlador {
 	@RequestMapping(path = "/ordena", method = RequestMethod.POST)
 	@ResponseBody
 	//los parametros deben tener el mismo nombre que se ha implementado en el caso test
-	public String añadirUser(@RequestParam String usuaria, String item) throws NotEnoughProException {
+	public String añadirOrden(@RequestParam String usuaria, String item) throws NotEnoughProException {
 		return service.peticionOrdenar(usuaria, item);
 	}
 	

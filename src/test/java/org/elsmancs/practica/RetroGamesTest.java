@@ -303,4 +303,17 @@ public class RetroGamesTest {
 		this.mockMvc.perform(post("/ordena").param("usuaria", "Wilson").param("item", "Ghosts n Goblins"))
 		.andExpect(status().isOk()).andExpect(content().string("KO"));
 	}
+	/**
+     * Asegurate de que en la URl /ordena
+     * solo se reciben peticiones POST 
+     */
+    @Test
+    public void test_post_error() throws Exception {
+ 
+		this.mockMvc.perform(get("/ordena")
+		.param("usuaria", "Bernard Bernoulli")
+		.param("item", "Ghosts n Goblins"))
+		.andExpect(status().is4xxClientError());
+    }
+    
 }
