@@ -22,15 +22,19 @@ public class Repositorio {
 		return em.find(RetroGame.class, gameName);
 	}
 
-	public Orden ordenar(String userName, String gameName) {
+	public Orden ordenar(String userName, String gameName) throws NotEnoughProException{
 		Usuaria user = cargaUser(userName);
 		RetroGame game = cargaGame(gameName);
 		Orden orden = new Orden();
 		
 		if(user != null && game != null) {
-			orden.setUser(user);
-			orden.setGame(game);
-			return orden;
+			if(user.getDestreza() >= game.getDificultad()) {
+				orden.setUser(user);
+				orden.setGame(game);
+				return orden;
+			}else {
+				throw new NotEnoughProException();
+			}	
 		}
 		return null;
 	}

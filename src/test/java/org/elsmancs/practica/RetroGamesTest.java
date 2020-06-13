@@ -27,6 +27,7 @@ import org.elsmancs.practica.controlador.Controlador;
 import org.elsmancs.practica.domain.Orden;
 import org.elsmancs.practica.domain.RetroGame;
 import org.elsmancs.practica.domain.Usuaria;
+import org.elsmancs.practica.repositorio.NotEnoughProException;
 import org.elsmancs.practica.repositorio.Repositorio;
 import org.elsmancs.practica.servicio.Servicio;
 import org.junit.Assert;
@@ -146,10 +147,11 @@ public class RetroGamesTest {
      * El metodo devuelve la orden de tipo Orden creada.
      * 
      * Guarda la orden en la base de datos.
+	 * @throws NotEnoughProException 
 	 */
 	@Test
 	@Transactional
-	public void test_ordenar_ok() {
+	public void test_ordenar_ok() throws NotEnoughProException {
 		assertNotNull(repo);
 		Orden orden = repo.ordenar("Bernard Bernoulli", "Ghosts n Goblins");
 		assertNotNull(orden);
@@ -161,10 +163,11 @@ public class RetroGamesTest {
      * Implementa el metodo ordenar del repositorio
 	 * para que no permita generar ordenes de RetroGames
 	 * si no existe el usuario/a en la base de datos.
+	 * @throws NotEnoughProException 
 	 */
 	@Test
 	@Transactional
-	public void test_ordenar_no_user() {
+	public void test_ordenar_no_user() throws NotEnoughProException {
 		assertNotNull(repo);
 		Orden orden = repo.ordenar("Wilson", "Ghosts n Goblins");
 		assertNull(orden);
@@ -173,12 +176,26 @@ public class RetroGamesTest {
      * Implementa el metodo ordenar del repositorio
 	 * para que no permita generar ordenes de RetroGames
 	 * si no existe el RetroGame en la base de datos.
+	 * @throws NotEnoughProException 
 	 */
 	@Test
 	@Transactional
-	public void test_ordenar_no_game() {
+	public void test_ordenar_no_game() throws NotEnoughProException {
 		assertNotNull(repo);
 		Orden orden = repo.ordenar("Bernard Bernoulli", "Grim Fandango");
 		assertNull(orden);
+	}
+	/**
+	 * Modifica el metodo ordenar para que lance una excepcion
+	 * del tipo NotEnoughProException
+	 * cuando la destreza del usuario/a sea menor
+	 * a la dificultad del RetroGame.
+	 */
+	@org.junit.Test(expected = NotEnoughProException.class)
+	@Transactional
+	public void test_ordenar_game_sin_pro() throws NotEnoughProException {
+		assertNotNull(repo);
+		repo.ordenar("Guybrush", "Ghosts n Goblins");
+		Assert.fail();
 	}
 }
