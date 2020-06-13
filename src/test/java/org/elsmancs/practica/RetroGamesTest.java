@@ -127,7 +127,16 @@ public class RetroGamesTest {
 	public void test_repositorio_es_componente() {
 		assertNotNull(repo);
 	}
-	
-	
+	/**
+	 * Implementa el metodo cargaUser del repositorio
+	 * que devuelve el usuario/a con el nombre indicado
+	 */
+	@Test
+	public void test_carga_user() {
+		assertNotNull(repo);
+		Usuaria guy = repo.cargaUser("Guybrush");
+		assertNotNull(guy);
+		assertEquals("Guybrush", guy.getNombre());
+	}
 	
 }
