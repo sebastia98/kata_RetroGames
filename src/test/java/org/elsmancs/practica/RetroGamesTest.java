@@ -254,4 +254,26 @@ public class RetroGamesTest {
 		assertEquals(2, ordenes.size());
 		assertFalse(ordenes.contains(null));
 	}
+    /**
+	 * Añade una clase controlador para hacer peticiones web
+	 * a nuestra app. 
+	 * Anotala para que sea un controlador de Spring.
+     */
+    @Test
+    public void test_controlador() {
+    	assertNotNull(controlador);
+	}
+    /**
+     * La peticion /usuaria/<nombre>
+     * ha de retornar el nombre y la destreza de la persona 
+	 * indicada de la base de datos.
+     */
+    @Test
+    public void test_get_persona() throws Exception {
+
+		this.mockMvc.perform(get("/usuaria/Guybrush").accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+		.andExpect(content().json("{nombre : 'Guybrush', destreza: 15}"));
+	}
 }
