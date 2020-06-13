@@ -36,4 +36,17 @@ public class Orden {
 		// TODO Auto-generated method stub
 		return this.game;
 	}
+	
+	public void setUser(Usuaria user) {
+		this.user = user;
+	}
+	
+	public void setGame(RetroGame game) {
+		this.game = game;
+	}
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
 }

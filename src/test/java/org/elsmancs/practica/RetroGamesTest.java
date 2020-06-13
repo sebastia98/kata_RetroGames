@@ -138,5 +138,35 @@ public class RetroGamesTest {
 		assertNotNull(guy);
 		assertEquals("Guybrush", guy.getNombre());
 	}
-	
+	/**
+     * Implementa el metodo ordenar del repositorio
+	 * que permite a un usuario/a pedir un item (RetroGame).
+     * El usuario/a y el item ya existen en la bbdd (NO has de crearlos).
+	 * 
+     * El metodo devuelve la orden de tipo Orden creada.
+     * 
+     * Guarda la orden en la base de datos.
+	 */
+	@Test
+	@Transactional
+	public void test_ordenar_ok() {
+		assertNotNull(repo);
+		Orden orden = repo.ordenar("Bernard Bernoulli", "Ghosts n Goblins");
+		assertNotNull(orden);
+		assertNotNull(orden.getId());
+		assertEquals("Bernard Bernoulli", orden.getUser().getNombre());
+		assertEquals("Ghosts n Goblins", orden.getItem().getNombre());
+	}
+	/**
+     * Implementa el metodo ordenar del repositorio
+	 * para que no permita generar ordenes de RetroGames
+	 * si no existe el usuario/a en la base de datos.
+	 */
+	@Test
+	@Transactional
+	public void test_ordenar_no_user() {
+		assertNotNull(repo);
+		Orden orden = repo.ordenar("Wilson", "Ghosts n Goblins");
+		assertNull(orden);
+	}
 }
