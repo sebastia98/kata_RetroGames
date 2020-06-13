@@ -119,7 +119,14 @@ public class RetroGamesTest {
 		assertEquals("Guybrush", pedido.getUser().getNombre()); //ord_user
 		assertEquals("El dia del tentaculo", pedido.getItem().getNombre()); //ord_item
 	}
-	
+	/**
+	 * Crea una clase llamada Repositorio e indica
+	 * que es un repositorio o componente de Spring 
+	 */
+	@Test
+	public void test_repositorio_es_componente() {
+		assertNotNull(repo);
+	}
 	
 	
 	
